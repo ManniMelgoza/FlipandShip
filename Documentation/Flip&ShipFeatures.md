@@ -9,12 +9,12 @@
     U: Edit Items that belong to the user
     D: Remote the item after is has sold or in no longer available
 
-### User Manage Listings
+### Wish List
 
-    C: Create user and modifty avatar and add bio to user profile given to us
-    R: List of all the items the user has posted/Followings List/ Bio of the logged in user
-    U: Update the user profile of listings
-    D: Delete Items the user logged in owns
+    C: Create a lists of items the user wants
+    R: List of all the items in the wish lists
+    U: Update the list by removing items fromt he list
+    D: Deleting the entire list
 
 ### Follow Users
 
@@ -23,6 +23,13 @@
     U: Add or Remove follow and followers - Add users to follow list like top seller, Good items, inventory
     D: Unfollow Users
 
+### Review sellers
+    C: Able to leave comments about a seller
+    R: Be able to see all the comments others have left of that user
+    U: The user that has comments is not able to add or delete reviws, the user that left the review of the seller can edit the review
+    D: The user that left the review to the other reseller is the only one that can remove the review of the seller.
+
+<!-- EXTRA FEATURES -->
 ### Notifications
 
     C: Auto create a notification when followed Users have posted new items (We can receive as many notification daily or weekly depending on the settings of notifications per user they follow)
@@ -30,9 +37,6 @@
     U: Update notifications settings as to how many notification we want to get per user
     D: Clear or delete notifications from the modal dropdown
 
-### Optional Features
-
     -Massaging btw users chat format
-    -Saved Items on a wishlist
     -Review sellers with a comment and give a start rating to them
     -Share and item via email or copy link

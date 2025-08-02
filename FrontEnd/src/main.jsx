@@ -14,6 +14,7 @@ if (import.meta.env.MODE !== "production") {
   window.sessionActions = sessionActions;
 }
 
+// ! jhgjhg
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ReduxProvider store={store}>
