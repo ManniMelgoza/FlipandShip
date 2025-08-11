@@ -10,10 +10,12 @@ class Wishlistitem(db.Model, TimeStampMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    wishlist_id = db.Column(db.Integer, nullable=False)
-    listing_id = db.Column(db.Integer, nullable=False)
+    wishlist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('wishlists.id')), nullable=False)
+    listing_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('listings.id')), nullable=False)
 
 # Relationships
+    wishlist = db.relationship('Wishlist', foreign_keys=[wishlist_id], back_populates='wishlistitems')
+    listing = db.relationship('Listing', foreign_keys=[listing_id], back_populates='wishlistitems')
 
     def to_dict(self):
         return {

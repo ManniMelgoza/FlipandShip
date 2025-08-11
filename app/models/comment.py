@@ -15,12 +15,12 @@ class Comment(db.Model, TimeStampMixin):
     comment_body = db.Column(db.String, nullable=False)
 
 # Relationships
+    user = db.relationship('User', back_populates='comments')
 
-
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'user_id': self.user_id,
-            'listing_id': self.listing_id,
-            'comment_body': self.comment_body
-        }
+def to_dict(self):
+    return {
+        'id': self.id,
+        'user_id': self.user_id,
+        'listing_id': self.listing_id,
+        'comment_body': self.comment_body
+    }
