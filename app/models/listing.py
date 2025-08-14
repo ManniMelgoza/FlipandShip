@@ -11,7 +11,7 @@ class Listing(db.Model, TimeStampMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    title = db.Column(db.String(255), nullable=False)
+    item_title = db.Column(db.String(255), nullable=False)
     price = db.Column(db.Numeric, nullable=False)
     description = db.Column(db.Text, nullable=False)
     location = db.Column(db.String(255), nullable=False)
@@ -40,7 +40,7 @@ class Listing(db.Model, TimeStampMixin):
         return {
             'id': self.id,
             'owner_id': self.owner_id,
-            'title': self.title,
+            'item_title': self.item_title,
             'price': str(self.price),
             'description': self.description,
             'location': self.location,
