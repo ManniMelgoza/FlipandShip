@@ -4,16 +4,49 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
+    # demo = User(
+    #     username='Demo', email='demo@aa.io', password='password')
+    # marnie = User(
+    #     username='marnie', email='marnie@aa.io', password='password')
+    # bobbie = User(
+    #     username='bobbie', email='bobbie@aa.io', password='password')
+
+    # db.session.add(demo)
+    # db.session.add(marnie)
+    # db.session.add(bobbie)
+    # db.session.commit()
+
     demo = User(
         username='Demo', email='demo@aa.io', password='password')
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
+        username='Manni', email='manni@aa.io', password='password')
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        username='Bobbie', email='bobbie@aa.io', password='password')
+    alex = User(
+        username='Alex', email='alex@aa.io', password='password')
+    sophia = User(
+        username='Sophia', email='sophia@aa.io', password='password')
+    james = User(
+        username='James', email='james@aa.io', password='password')
+    linda = User(
+        username='Linda', email='linda@aa.io', password='password')
+    michael = User(
+        username='Michael', email='michael@aa.io', password='password')
+    natalie = User(
+        username='Natalie', email='natalie@aa.io', password='password')
+    ryan = User(
+        username='Ryan', email='ryan@aa.io', password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(alex)
+    db.session.add(sophia)
+    db.session.add(james)
+    db.session.add(linda)
+    db.session.add(michael)
+    db.session.add(natalie)
+    db.session.add(ryan)
     db.session.commit()
 
 
@@ -28,5 +61,5 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
-        
+
     db.session.commit()
