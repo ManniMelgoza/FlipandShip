@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, DecimalField, NumberRange, TextAreaField, IntegerField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, ValidationError, URL, Optional, Regexp
+import re
 
 class ListingForm(FlaskForm):
     item_title = StringField('Title', validators=[DataRequired()])
@@ -20,4 +21,16 @@ class ListingForm(FlaskForm):
 
     # TODO: Add Images from listingimage.py
 
-    
+    listing_img1 = StringField('Listing Image Main', validators=[
+        DataRequired(),
+        Regexp(
+            r'^https://.+\.(jpg|jpeg|png|gif|webp)(\?.*)?$',
+            flags=re.IGNORECASE,
+            message='Please enter a valid HTTPS image URL (jpg, jpeg, png, gif, webp)'
+        )
+        ])
+    listing_img2 = StringField("Listing image", validators=[Optional(), URL()])
+    listing_img3 = StringField("Listing image", validators=[Optional(), URL()])
+    listing_img4 = StringField("Listing image", validators=[Optional(), URL()])
+    listing_img5 = StringField("Listing image", validators=[Optional(), URL()])
+

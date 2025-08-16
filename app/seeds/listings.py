@@ -37,21 +37,21 @@ def seed_listings():
 
         # Boulder - owner_id 6 (21 - 24)
         Listing(owner_id=6, item_title="Beats Headphones", price=140, description="Beats wireless headphones with deep bass and clear audio. Stylish design, folds for easy storage. Works perfectly.", location='80301', brand="Beats", color="Black", quantity=2, condition_id=None, category_id=None),
-        Listing(owner_id=6, item_title="Vintage Vinyl Record Player", price=39, description="Classic turntable with built-in speakers. Works perfectly and delivers warm sound. Great for music lovers or vintage décor.", location='80304', brand="Crosley", color="Black", quantity=6, condition_id=None, category_id=None),
+        Listing(owner_id=6, item_title="Vintage Vinyl Record Player", price=39, description="Classic turntable with built-in speakers. Works perfectly and delivers warm sound. Great for music lovers or vintage décor.", location='80304', brand="Crosley", color="Brown/Teal", quantity=6, condition_id=None, category_id=None),
         Listing(owner_id=6, item_title="Wireless Printer", price=99, description="All-in-one wireless inkjet printer with scanning and copying. Easy setup and great for home or office use.", location='80305', brand="HP", color="White", quantity=4, condition_id=None, category_id=None),
-        Listing(owner_id=6, item_title="Mountain Bike", price=205, description="Durable mountain bike with front suspension and 21-speed gears. Perfect for trails, commuting, or weekend rides.", location='80303', brand="Trek", color="Red", quantity=7, condition_id=None, category_id=None),
+        Listing(owner_id=6, item_title="Mountain Bike", price=205, description="Durable mountain bike with front suspension and 21-speed gears. Perfect for trails, commuting, or weekend rides.", location='80303', brand="Trek", color="Black/Gray", quantity=7, condition_id=None, category_id=None),
 
         # Broomfield - owner_id 7 (25-28)
-        Listing(owner_id=7, item_title="Electric Kettle", price=55, description="Fast-boiling electric kettle with auto shut-off and stainless steel body. Perfect for tea, coffee, or instant meals.", location='80020', brand="Hamilton Beach", color="Silver", quantity=10, condition_id=None, category_id=None),
-        Listing(owner_id=7, item_title="Leather Office Chair", price=185, description="Comfortable high-back leather office chair with adjustable height and smooth-rolling wheels. Excellent condition.", location='80021', brand="Staples", color="Brown", quantity=3, condition_id=None, category_id=None),
-        Listing(owner_id=7, item_title="Air Fryer", price=67, description="Compact air fryer with multiple presets for easy cooking. Makes crispy foods with less oil.", location='80023', brand="Ninja", color="Black", quantity=5, condition_id=None, category_id=None),
-        Listing(owner_id=7, item_title="Cordless Leaf Blower", price=230, description="Powerful cordless leaf blower with long battery life. Great for yard cleanup or light snow removal.", location='80020', brand="DeWalt", color="Yellow", quantity=2, condition_id=None, category_id=None),
+        Listing(owner_id=7, item_title="Electric Kettle", price=55, description="Fast-boiling electric kettle with auto shut-off and stainless steel body. Perfect for tea, coffee, or instant meals.", location='80020', brand="Hamilton Beach", color="Black", quantity=10, condition_id=None, category_id=None),
+        Listing(owner_id=7, item_title="Leather Office Chair", price=185, description="Comfortable high-back leather office chair with adjustable height and smooth-rolling wheels. Excellent condition.", location='80021', brand="Staples", color="Black", quantity=3, condition_id=None, category_id=None),
+        Listing(owner_id=7, item_title="Air Fryer", price=67, description="Compact air fryer with multiple presets for easy cooking. Makes crispy foods with less oil.", location='80023', brand="Phillips", color="Black", quantity=5, condition_id=None, category_id=None),
+        Listing(owner_id=7, item_title="Cordless Leaf Blower", price=230, description="Powerful cordless leaf blower with long battery life. Great for yard cleanup or light snow removal.", location='80020', brand="STIHL", color="Orange/White", quantity=2, condition_id=None, category_id=None),
 
         # Golden - owner_id 8 (29-32)
         Listing(owner_id=8, item_title="Bluetooth Speaker", price=59, description="Portable Bluetooth speaker with deep bass and long battery life. Perfect for outdoor gatherings or home use.", location='80401', brand="JBL", color="Blue", quantity=6, condition_id=None, category_id=None),
-        Listing(owner_id=8, item_title="Cordless Power Drill", price=208, description="Heavy-duty cordless drill with two batteries and charger. Ideal for DIY or professional projects.", location='80402', brand="Makita", color="Teal", quantity=7, condition_id=None, category_id=None),
+        Listing(owner_id=8, item_title="Cordless Power Drill", price=208, description="Heavy-duty cordless drill with two batteries and charger. Ideal for DIY or professional projects.", location='80402', brand="DeWalt", color="Yellow", quantity=7, condition_id=None, category_id=None),
         Listing(owner_id=8, item_title="Camping Tent", price=74, description="Lightweight two-person tent with waterproof coating and easy setup. Great for camping or festivals.", location='80403', brand="Coleman", color="Green", quantity=1, condition_id=None, category_id=None),
-        Listing(owner_id=8, item_title="Stand Mixer", price=130, description="Stand mixer with multiple speeds, great for baking and meal prep. Sturdy and reliable.", location='80419', brand="Sunbeam", color="Red", quantity=4, condition_id=None, category_id=None),
+        Listing(owner_id=8, item_title="Hand Mixer", price=130, description="Stand mixer with multiple speeds, great for baking and meal prep. Sturdy and reliable.", location='80419', brand="Sunbeam", color="White", quantity=4, condition_id=None, category_id=None),
 
         # Fort Collins - owner_id 9 (33-36)
         Listing(owner_id=9, item_title="Gaming Keyboard", price=95, description="Mechanical gaming keyboard with RGB backlighting and responsive keys. Great for gamers or work.", location='80521', brand="Razer", color="Black", quantity=5, condition_id=None, category_id=None),
@@ -60,10 +60,10 @@ def seed_listings():
         Listing(owner_id=9, item_title="Car Roof Cargo Box", price=210, description="Spacious roof-mounted cargo box for extra storage on trips. Fits most vehicles.", location='80528', brand="Thule", color="Gray", quantity=6, condition_id=None, category_id=None),
 
         # Cherry Creek - owner_id 10 (37-40)
-        Listing(owner_id=10, item_title="Espresso Machine", price=130, description="Compact espresso machine with steam wand for cappuccinos and lattes. Works great.", location='80110', brand="De'Longhi", color="Silver", quantity=8, condition_id=None, category_id=None),
-        Listing(owner_id=10, item_title="Electric Guitar", price=225, description="Solid-body electric guitar with smooth fretboard and clear sound. Great for any player.", location='80111', brand="Fender", color="Sunburst", quantity=3, condition_id=None, category_id=None),
-        Listing(owner_id=10, item_title="Cordless Vacuum", price=68, description="Lightweight cordless vacuum with strong suction and detachable handheld mode.", location='80112', brand="Shark", color="Blue", quantity=7, condition_id=None, category_id=None),
-        Listing(owner_id=10, item_title="Patio Furniture Set", price=105, description="Three-piece patio set with weather-resistant wicker and cushions. Great for outdoor lounging.", location='80113', brand="Mainstays", color="Brown", quantity=2, condition_id=None, category_id=None),
+        Listing(owner_id=10, item_title="Espresso Machine", price=130, description="Compact espresso machine with steam wand for cappuccinos and lattes. Works great.", location='80110', brand="Breville", color="Silver", quantity=8, condition_id=None, category_id=None),
+        Listing(owner_id=10, item_title="Electric Guitar", price=225, description="Solid-body electric guitar with smooth fretboard and clear sound. Great for any player.", location='80111', brand="Fender", color="Aqua", quantity=3, condition_id=None, category_id=None),
+        Listing(owner_id=10, item_title="Cordless Vacuum", price=68, description="Lightweight cordless vacuum with strong suction and detachable handheld mode.", location='80112', brand="Shark", color="Brown", quantity=7, condition_id=None, category_id=None),
+        Listing(owner_id=10, item_title="Patio Furniture Set", price=105, description="Three-piece patio set with weather-resistant wicker and cushions. Great for outdoor lounging.", location='80113', brand="Mainstays", color="White", quantity=2, condition_id=None, category_id=None),
     ]
 
     for listing in listings:
