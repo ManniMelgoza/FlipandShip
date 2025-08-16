@@ -2,7 +2,7 @@ from app.models import db, Listingimage, environment, SCHEMA
 from sqlalchemy.sql import text
 
 
-def seed_Listingimages():
+def seed_listingimages():
 
     Listingimages = [
         # Listing 1 - Tripod Manfrotto (owner_id 1)
@@ -251,7 +251,7 @@ def seed_Listingimages():
         db.session.add(image)
     db.session.commit()
 
-def undo_Listingimages():
+def undo_listingimages():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.Listingimages RESTART IDENTITY CASCADE;")
     else:
