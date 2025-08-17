@@ -30,6 +30,7 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(listing_routes, url_prefix='/api/listings')
+app.register_blueprint(listing_routes, url_prefix='/api/comments')
 db.init_app(app)
 Migrate(app, db)
 

@@ -13,12 +13,12 @@ class ListingForm(FlaskForm):
         validators=[DataRequired(),
         NumberRange(min=0, max=9999.99)
         ])
-    condition = SelectField('Condition', validators=[DataRequired()])
+    condition = SelectField('Condition', coerce=int, validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
     category = SelectField('Category', coerce=int, validators=[DataRequired()])
     brand = StringField('Brand', validators=[DataRequired()])
     color = StringField('Color', validators=[DataRequired()])
-    quantity = IntegerField('Quantity', validators=[DataRequired()])
+    quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=1)])
 
     # IMAGES
     listing_img1 = StringField('Listing Image Main', validators=[

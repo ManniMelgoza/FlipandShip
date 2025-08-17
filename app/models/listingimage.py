@@ -11,6 +11,7 @@ class Listingimage(db.Model, TimeStampMixin):
     id = db.Column(db.Integer, primary_key=True)
     listing_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('listings.id')), nullable=False)
     listing_img = db.Column(db.String(255), nullable=False)
+    is_main = db.Column(db.Boolean, default=False)
 
 # Relationships
     listing = db.relationship("Listing", back_populates='listing_images')
@@ -19,5 +20,6 @@ class Listingimage(db.Model, TimeStampMixin):
         return{
             'id': self.id,
             'listing_id': self.listing_id,
-            'listing_img': self.listing_img
+            'url': self.listing_img,
+            'is_main': self.is_main
         }

@@ -1,7 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from .timestampmixin import TimeStampMixin
-
+from .listingimage import Listingimage
 
 class Listing(db.Model, TimeStampMixin):
     __tablename__ = 'listings'
@@ -12,7 +12,7 @@ class Listing(db.Model, TimeStampMixin):
     id = db.Column(db.Integer, primary_key=True)
     owner_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     item_title = db.Column(db.String(255), nullable=False)
-    price = db.Column(db.Numeric, nullable=False)
+    price = db.Column(db.Decimal, nullable=False)
     description = db.Column(db.Text, nullable=False)
     location = db.Column(db.String(255), nullable=False)
     brand = db.Column(db.String(255), nullable=False)
@@ -48,5 +48,13 @@ class Listing(db.Model, TimeStampMixin):
             'color': self.color,
             'quantity': self.quantity,
             'condition': self.condition.to_dict() if self.condition else None,
-            'category': self.category.to_dict() if self.category else None
+            'category': self.category.to_dict() if self.category else None,
+            'images': [
+                {
+                    'id': img.id,
+                    'url': img.listing_img,
+                    'is_main':img.is_main
+                }
+                for img in self.listing_images
+            ]
         }

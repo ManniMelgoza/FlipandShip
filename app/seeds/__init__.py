@@ -6,6 +6,8 @@ from .users import seed_users, undo_users
 # from .reviews import seed_reviews, undo_reviews
 # from .wishlistitems import seed_wishlistitems, undo_wishlistitems
 # from .wishlists import seed_wishlists, undo_wishlists
+# from .listingcategories import seed_listingcategories, undo_listingcategories
+# from .listingconditons import seed_listingconditions, undo_listingconditions
 
 from app.models.db import db, environment, SCHEMA
 
