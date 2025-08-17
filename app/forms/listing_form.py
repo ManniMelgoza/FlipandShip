@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, DecimalField, NumberRange, TextAreaField, IntegerField
-from wtforms.validators import DataRequired, ValidationError, URL, Optional, Regexp
+from wtforms import StringField, SelectField, DecimalField, TextAreaField, IntegerField
+from wtforms.validators import DataRequired, ValidationError, URL, Optional, Regexp, NumberRange
+# Used for pattern matching and text validation for the https url in the listing_img1
 import re
 
 class ListingForm(FlaskForm):
@@ -14,13 +15,12 @@ class ListingForm(FlaskForm):
         ])
     condition = SelectField('Condition', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
-    category = IntegerField('Category', validators=[DataRequired()])
+    category = SelectField('Category', coerce=int, validators=[DataRequired()])
     brand = StringField('Brand', validators=[DataRequired()])
     color = StringField('Color', validators=[DataRequired()])
-    quatity = IntegerField('Quantity', validators=[DataRequired()])
+    quantity = IntegerField('Quantity', validators=[DataRequired()])
 
-    # TODO: Add Images from listingimage.py
-
+    # IMAGES
     listing_img1 = StringField('Listing Image Main', validators=[
         DataRequired(),
         Regexp(
@@ -33,4 +33,3 @@ class ListingForm(FlaskForm):
     listing_img3 = StringField("Listing image", validators=[Optional(), URL()])
     listing_img4 = StringField("Listing image", validators=[Optional(), URL()])
     listing_img5 = StringField("Listing image", validators=[Optional(), URL()])
-

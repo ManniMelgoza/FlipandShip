@@ -1,11 +1,11 @@
 from flask.cli import AppGroup
 from .users import seed_users, undo_users
-from .listings import seed_listings, undo_listings
-from .listingimages import seed_listingimages, undo_listingimages
-from .comments import seed_comments, undo_comments
-from .reviews import seed_reviews, undo_reviews
-from .wishlistitems import seed_wishlistitems, undo_wishlistitems
-from .wishlists import seed_wishlists, undo_wishlists
+# from .listings import seed_listings, undo_listings
+# from .listingimages import seed_listingimages, undo_listingimages
+# from .comments import seed_comments, undo_comments
+# from .reviews import seed_reviews, undo_reviews
+# from .wishlistitems import seed_wishlistitems, undo_wishlistitems
+# from .wishlists import seed_wishlists, undo_wishlists
 
 from app.models.db import db, environment, SCHEMA
 
@@ -23,31 +23,31 @@ def seed():
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
         undo_users()
-        undo_listings()
-        undo_listingimages()
-        undo_comments()
-        undo_reviews()
-        undo_wishlistitems()
-        undo_wishlists()
+        # undo_listings()
+        # undo_listingimages()
+        # undo_comments()
+        # undo_reviews()
+        # undo_wishlistitems()
+        # undo_wishlists()
 
 
     # Add other seed functions here
     seed_users()
-    seed_listings()
-    seed_listingimages()
-    seed_comments()
-    seed_reviews()
-    seed_wishlistitems()
-    seed_wishlists()
+    # seed_listings()
+    # seed_listingimages()
+    # seed_comments()
+    # seed_reviews()
+    # seed_wishlistitems()
+    # seed_wishlists()
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
 def undo():
     # Add other undo functions here
     undo_users()
-    undo_listings()
-    undo_listingimages()
-    undo_comments()
-    undo_reviews()
-    undo_wishlistitems()
-    undo_wishlists()
+    # undo_listings()
+    # undo_listingimages()
+    # undo_comments()
+    # undo_reviews()
+    # undo_wishlistitems()
+    # undo_wishlists()
