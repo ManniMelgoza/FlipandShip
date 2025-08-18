@@ -28,7 +28,7 @@ def edit_comment(comment_id):
 
         db.session.commit()
         return comment.to_dict(), 200
-    return edit_comment.errors, 400
+    return {'Errors': edit_comment.errors}, 400
 
 # *********************************
 #   DELTE Comment

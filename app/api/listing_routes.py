@@ -56,7 +56,7 @@ def create_listing():
         if listing.data.get('listing_img1'):
             main_image = Listingimage(
                 listing_id=create_listing.id,
-                listing_img=listing.data['listing_img1'],  # 👈 matches your model column
+                listing_img=listing.data['listing_img1'], 
                 is_main=True
             )
             db.session.add(main_image)
@@ -153,7 +153,7 @@ def edit_listing(listing_id):
 
         db.session.commit()
         return listing_edit.to_dict(), 200
-    return edit_form.errors, 400
+    return {'Errors': edit_form.errors}, 400
 
 # *********************************
 #  DELETE Listing Route
@@ -164,7 +164,7 @@ def delete_listings(listing_id):
     listing_delete = Listing.query.get(listing_id)
 
     if not listing_delete:
-        return {"Message": f"Listing was not found"}, 404
+        return {"Message": "Listing was not found"}, 404
     if listing_delete.owner_id != current_user.id:
         return {"Message": "You are not authorized to DELETE this listing"}, 403
 
