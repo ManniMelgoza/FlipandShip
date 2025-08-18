@@ -7,8 +7,8 @@ from .listingimage import Listingimage
 from .review import Review
 from .wishlist import Wishlist
 from .wishlistitem import Wishlistitem
-from .lookuptables.listingconditions import listingconditions
-from .lookuptables.listingcategories import Listingcategory
+from .listingconditions import Listingcondition
+from .listingcategories import Listingcategory
 from .db import environment, SCHEMA
 
 __all__ = [
@@ -20,7 +20,7 @@ __all__ = [
     'Listingimage',
     'Review',
     'Wishlist',
-    'Wishlistitem'
-    'listingcategories'
-    'listingconditions'
+    'Wishlistitem',
+    'Listingcategory',
+    'Listingcondition',
 ]

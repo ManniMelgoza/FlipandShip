@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import Listing, Comment, Listingimage, db
-from app.models.lookuptables import Listingcategory, Listingcondition
+from app.models import Listing, Comment, Listingimage, db, Listingcategory, Listingcondition
 from app.forms import  ListingForm, CommentForm
 from flask_login import login_required, current_user
 
@@ -56,7 +55,7 @@ def create_listing():
         if listing.data.get('listing_img1'):
             main_image = Listingimage(
                 listing_id=create_listing.id,
-                listing_img=listing.data['listing_img1'], 
+                listing_img=listing.data['listing_img1'],
                 is_main=True
             )
             db.session.add(main_image)
@@ -179,7 +178,7 @@ def delete_listings(listing_id):
 # *********************************
 #   GET All Comments per Listing
 #**********************************
-@listing_routes.route('/<int:listing_id/comments')
+@listing_routes.route('/<int:listing_id>/comments')
 def all_comments(listing_id):
     # listing_id=listing_id (table_column=actual route variable)
     comments = Comment.query.filter_by(listing_id=listing_id).all()
