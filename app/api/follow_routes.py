@@ -8,9 +8,17 @@ follow_routes = Blueprint('follows', __name__)
 #   GET Followings
 #**********************************
 @follow_routes.route('/<int:user_id>/following', methods=['GET'])
+@login_required
 def get_following(user_id):
 
+    if current_user.id != user_id:
+        return {"Message": "Unauthorized access"}, 403
+
     following = Follow.query.filter_by(follower_id=user_id).all()
+
+    if not following:
+        return {"Message": 'You are not following anyone'}, 404
+
     return [follow.to_dict() for follow in following], 200
 
 # *********************************
@@ -25,19 +33,15 @@ def get_followers(user_id):
 # *********************************
 #   POST Follow User
 #**********************************
-@follow_routes.route('/<int:user_id>/follow', methods=['POST'])
+@follow_routes.route('/<int:user_id>/follow/<int:following_id>', methods=['POST'])
 @login_required
+def follow_user(user_id, following_id):
 
-def follow_user(user_id):
-
-    follow = request.get_json()
-    following_id = follow.get('following_id')
-
-    if not following_id:
-        return {'Message': 'following_id is required'}, 400
+    if current_user.id != user_id:
+        return {"Message": "Unauthorized access"}, 403
 
     if user_id == following_id:
-        return {'Message': 'You cannot follow yourself'}, 400
+        return {"Message": "You cannot follow yourself"}, 400
 
     existing_follow = Follow.query.filter_by(follower_id=user_id, following_id=following_id).first()
     if existing_follow:
@@ -52,11 +56,15 @@ def follow_user(user_id):
 # *********************************
 #   DELETE Un-Follow User
 #**********************************
-@follow_routes.route('/<int:user_id>/unfollow', methods=['DELETE'])
+@follow_routes.route('/<int:user_id>/unfollow/<int:following_id>', methods=['DELETE'])
 @login_required
-def unfollow_user(user_id):
-    unfollow = request.get_json()
-    following_id = unfollow.get('following_id')
+def unfollow_user(user_id, following_id):
+
+    if current_user.id != user_id:
+        return {"Message": "Unauthorized access"}, 403
+
+    # unfollow = request.get_json()
+    # following_id = unfollow.get('following_id')
 
     follow = Follow.query.filter_by(follower_id=user_id, following_id=following_id).first()
     if not follow:

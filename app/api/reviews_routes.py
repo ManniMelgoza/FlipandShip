@@ -8,9 +8,13 @@ review_routes = Blueprint('reviews', __name__)
 # *********************************
 #   GET All Reviews for user
 #**********************************
-@review_routes.route('/<int:user_id>')
+@review_routes.route('user/<int:user_id>')
 @login_required
 def all_reviews(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return {"Message": "User Not Found"}, 404
+
     reviews = Review.query.filter_by(reviewed_id=user_id).all()
     return {'Reviews': [review.to_dict() for review in reviews]}, 200
 
@@ -60,22 +64,17 @@ def create_review(user_id):
 @login_required
 def update_review(review_id):
     review = Review.query.get(review_id)
-
     if not review:
         return {'Message': 'Review Not Found'}, 404
-
     if review.reviewer_id != current_user.id:
         return  {"Message": 'You are not authorized to edit this review'}, 403
 
-    review_form = ReviewForm(obj=review)
-    review_form['csrf_token'].data = request.cookies['csrf_token']
+    review_form = ReviewForm(data=request.get_json(), obj=review)
+    review_form['csrf_token'].data = request.cookies.get('csrf_token')
 
-    if review_form.validate_on_submit():
-        # review.rating = form.rating.data
-        # review.review_body = form.review_body.data
+    if review_form.validate():
         review.rating = review_form.data['rating']
         review.review_body = review_form.data['review_body']
-
         db.session.commit()
         return review.to_dict(), 200
     return {'Errors': review_form.errors}, 400

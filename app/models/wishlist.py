@@ -14,7 +14,7 @@ class Wishlist(db.Model, TimeStampMixin):
 
 # Relationships
     owner = db.relationship('User', back_populates = 'wishlists')
-    wishlistitems = db.relationship('Wishlistitem', back_populates='wishlist')
+    wishlistitems = db.relationship('Wishlistitem', back_populates='wishlist', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {

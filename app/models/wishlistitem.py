@@ -10,7 +10,7 @@ class Wishlistitem(db.Model, TimeStampMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     wishlist_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('wishlists.id')), nullable=False)
-    listing_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('listings.id')), nullable=False)
+    listing_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('listings.id'), ondelete="CASCADE"), nullable=False)
 
 # Relationships
     wishlist = db.relationship('Wishlist', foreign_keys=[wishlist_id], back_populates='wishlistitems')

@@ -13,9 +13,49 @@ class ListingForm(FlaskForm):
         validators=[DataRequired(),
         NumberRange(min=0, max=9999.99)
         ])
-    condition = SelectField('Condition', coerce=int, validators=[DataRequired()])
+
+    condition = SelectField(
+    'Condition',
+    choices=[
+        (1, 'New'),
+        (2, 'Open-Box'),
+        (3, 'Refurbished'),
+        (4, 'Used'),
+        (5, 'Like-New'),
+        (6, 'Free')
+    ],
+    coerce=int,  # ensures data comes back as int
+    validators=[DataRequired()])
+
+    category = SelectField(
+    'Category',
+    choices=[
+        (1, 'Electronics'),
+        (2, 'Clothing & Accessories'),
+        (3, 'Home & Garden'),
+        (4, 'Sports & Outdoors'),
+        (5, 'Books & Media'),
+        (6, 'Toys & Games'),
+        (7, 'Automotive'),
+        (8, 'Health & Beauty'),
+        (9, 'Jewelry & Watches'),
+        (10, 'Collectibles & Antiques'),
+        (11, 'Art & Crafts'),
+        (12, 'Musical Instruments'),
+        (13, 'Pet Supplies'),
+        (14, 'Baby & Kids'),
+        (15, 'Office'),
+        (16, 'Tools & Hardware/Industrial'),
+        (17, 'Photography & Video'),
+        (18, 'Travel & Luggage'),
+        (19, 'Furniture'),
+        (20, 'Other')
+    ],
+    coerce=int,  # ensures it maps to your db int FK
+    validators=[DataRequired()]) #validators=[DataRequired()]
+
+    location = StringField('Location',validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
-    category = SelectField('Category', coerce=int, validators=[DataRequired()])
     brand = StringField('Brand', validators=[DataRequired()])
     color = StringField('Color', validators=[DataRequired()])
     quantity = IntegerField('Quantity', validators=[DataRequired(), NumberRange(min=1)])

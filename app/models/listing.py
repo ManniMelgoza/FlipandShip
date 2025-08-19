@@ -33,7 +33,7 @@ class Listing(db.Model, TimeStampMixin):
     owner = db.relationship('User', back_populates = 'listings')
     condition = db.relationship('Listingcondition', back_populates = 'listings')
     category = db.relationship('Listingcategory', back_populates = 'listings')
-    wishlistitems = db.relationship('Wishlistitem', back_populates = 'listing')
+    wishlistitems = db.relationship('Wishlistitem', back_populates = 'listing', cascade="all, delete-orphan")
     listing_images = db.relationship('Listingimage', back_populates='listing', cascade="all, delete-orphan")
 
     def to_dict(self):

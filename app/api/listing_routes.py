@@ -12,7 +12,7 @@ listing_routes = Blueprint('listings', __name__)
 @listing_routes.route('/')
 def all_listings():
     listings = Listing.query.all()
-    return {'Listings': [item.to_dict() for item in listings]}
+    return {'Listings': [item.to_dict() for item in listings]}, 200
 
 # *********************************
 #   GET Single Listings
@@ -29,7 +29,7 @@ def single_listing(listing_id):
 # ***************************************
 #   POST Create NEW Listing
 #****************************************
-@listing_routes.route('/', methods=['POST'])
+@listing_routes.route('/create', methods=['POST'])
 @login_required
 def create_listing():
     listing = ListingForm()
@@ -136,7 +136,8 @@ def edit_listing(listing_id):
 
     edit_form = ListingForm(obj=listing_edit)
 
-    edit_form['csrf_token'].data = request.cookies['csrf_token']
+    edit_form['csrf_token'].data = request.cookies.get('csrf_token')
+
 
     if edit_form.validate_on_submit():
 
@@ -183,12 +184,15 @@ def all_comments(listing_id):
     # listing_id=listing_id (table_column=actual route variable)
     comments = Comment.query.filter_by(listing_id=listing_id).all()
 
+    if not comments:
+        return {'Message': "Comment Not Found"}, 404
+
     return {'Comments': [comment.to_dict() for comment in comments]}
 
 # **************************************
 #   POST Create NEW Comment to listing
 #***************************************
-@listing_routes.route('/<int:listing_id>/comments', methods=['POST'])
+@listing_routes.route('/<int:listing_id>/create', methods=['POST'])
 @login_required
 
 def create_comment(listing_id):
