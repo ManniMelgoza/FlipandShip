@@ -111,9 +111,9 @@ def get_conditions():
     conditions =Listingcondition.query.all()
     return {'Conditions': [condition.to_dict() for condition in conditions]}
 
-# ***************************************
-#   GET ALL Current User's Posts Route
-#****************************************
+# **********************************************
+#   GET ALL Current User's Posts Listings Route
+#***********************************************
 @listing_routes.route('/current')
 @login_required
 def get_current_user_listings():
