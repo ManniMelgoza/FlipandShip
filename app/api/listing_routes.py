@@ -108,7 +108,7 @@ def get_categories():
 #****************************************
 @listing_routes.route('/conditions')
 def get_conditions():
-    conditions =Listingcondition.query.all()
+    conditions = Listingcondition.query.all()
     return {'Conditions': [condition.to_dict() for condition in conditions]}
 
 # **********************************************
@@ -118,7 +118,7 @@ def get_conditions():
 @login_required
 def get_current_user_listings():
     user_listings = Listing.query.filter_by(owner_id=current_user.id).all()
-    return {'Listings': [item.to_dict() for item in user_listings]}
+    return {'User_Listings': [item.to_dict() for item in user_listings]}
 
 # ***************************************
 #   PUT Edit Listing
