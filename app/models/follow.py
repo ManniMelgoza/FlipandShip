@@ -12,9 +12,9 @@ class Follow(db.Model, TimeStampMixin):
     follower_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     following_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
-    # __table_args__ = (
-    #     db.UniqueConstraint('follower_id', 'following_id', name='unique_follow'),
-    # )
+    __table_args__ = (
+        db.UniqueConstraint('follower_id', 'following_id', name='unique_follow'),
+    )
 # Relationships
     follower = db.relationship('User', foreign_keys=[follower_id], back_populates='follower_by_user')
     following = db.relationship('User', foreign_keys=[following_id], back_populates='following_by_user')
