@@ -36,7 +36,6 @@ def seed():
         undo_listings()
         undo_users()
 
-
     # Add other seed functions here
     seed_users()
     seed_follows()
