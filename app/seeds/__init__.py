@@ -32,14 +32,14 @@ def seed():
         undo_wishlists()
         undo_listingcategories()
         undo_listingconditions()
-        undo_follows()
+        # undo_follows()
         undo_listings()
         undo_users()
 
 
     # Add other seed functions here
     seed_users()
-    seed_follows()
+    # seed_follows()
     seed_listings()
     seed_listingimages()
     seed_comments()
@@ -60,6 +60,6 @@ def undo():
     undo_wishlists()
     undo_listingcategories()
     undo_listingconditions()
-    undo_follows()
+    # undo_follows()
     undo_listings()
     undo_users()
