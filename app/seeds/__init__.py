@@ -46,8 +46,8 @@ def seed():
     seed_listingimages()
     seed_comments()
     seed_reviews()
-    seed_wishlistitems()
     seed_wishlists()
+    seed_wishlistitems()
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')

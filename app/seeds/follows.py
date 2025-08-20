@@ -65,5 +65,4 @@ def undo_follows():
         db.session.execute(f"TRUNCATE table {SCHEMA}.follows RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM follows"))
-
     db.session.commit()
