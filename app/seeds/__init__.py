@@ -32,22 +32,22 @@ def seed():
         undo_wishlists()
         undo_listingcategories()
         undo_listingconditions()
-        # undo_follows()
+        undo_follows()
         undo_listings()
         undo_users()
 
 
     # Add other seed functions here
     seed_users()
-    # seed_follows()
+    seed_follows()
+    seed_listingcategories()
+    seed_listingconditions()
     seed_listings()
     seed_listingimages()
     seed_comments()
     seed_reviews()
     seed_wishlistitems()
     seed_wishlists()
-    seed_listingcategories()
-    seed_listingconditions()
 
 # Creates the `flask seed undo` command
 @seed_commands.command('undo')
@@ -60,6 +60,6 @@ def undo():
     undo_wishlists()
     undo_listingcategories()
     undo_listingconditions()
-    # undo_follows()
+    undo_follows()
     undo_listings()
     undo_users()
