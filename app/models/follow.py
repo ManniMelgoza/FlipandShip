@@ -18,8 +18,8 @@ class Follow(db.Model, TimeStampMixin):
         # {"schema": SCHEMA} if environment == "production" else {}
     )
 # Relationships
-    follower = db.relationship('User', foreign_keys=[follower_id], back_populates='follower_by_user')
-    following = db.relationship('User', foreign_keys=[following_id], back_populates='following_by_user')
+    follower = db.relationship('User', foreign_keys='Follow.follower_id', back_populates='follower_by_user')
+    following = db.relationship('User', foreign_keys='Follow.following_id', back_populates='following_by_user')
 
 
     def to_dict(self):
