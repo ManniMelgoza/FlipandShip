@@ -86,12 +86,12 @@ export const thunkGetWishlist = (wishlistId) => async (dispatch) => {
 // -----------------------------
 // CREATE WISHLIST
 // -----------------------------
-export const thunkCreateWishlist = (title) => async (dispatch) => {
+export const thunkCreateWishlist = (newWishlist) => async (dispatch) => {
     try {
         const response = await csrfFetch('/api/wishlists/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title })
+            body: JSON.stringify({ newWishlist })
         });
 
         if (response.ok) {
@@ -111,12 +111,12 @@ export const thunkCreateWishlist = (title) => async (dispatch) => {
 // -----------------------------
 // EDIT WISHLIST
 // -----------------------------
-export const thunkEditWishlist = (wishlistId, title) => async (dispatch) => {
+export const thunkEditWishlist = (wishlistId, wishlistEdit) => async (dispatch) => {
     try {
         const response = await csrfFetch(`/api/wishlists/${wishlistId}/edit`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title })
+            body: JSON.stringify({ wishlistEdit })
         });
 
         if (response.ok) {
@@ -166,13 +166,13 @@ const initialState = {
 
 function wishlistReducer(state = initialState, action) {
     switch (action.type) {
-        case GET_ALL_WISHLISTS: {
+        case GET_USER_WISHLISTS: {
         const wishlists = {};
         action.payload.forEach((wishlist) => (wishlists[wishlist.id] = wishlist));
         return { ...state, wishlists };
         }
 
-        case GET_SINGLE_WISHLIST: {
+        case GET_WISHLIST: {
         return { ...state, currentWishlist: action.payload };
         }
 

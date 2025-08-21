@@ -84,7 +84,7 @@ export const thunkRemoveWishlistItem = (itemId) => async (dispatch) => {
 
         if (response.ok) {
             dispatch(deleteWishlistItem(itemId));
-            return true;
+            return response;
         } else {
             const error = await response.json();
             return { error: error.errors || ["Unable to remove wishlist item"] };
