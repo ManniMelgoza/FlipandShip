@@ -24,14 +24,14 @@ const getAllListings = (listings) => ({
     payload: listings
 });
 
-const getCurrentUserListings = (listings) => ({
+const getCurrentUserListings = (userListings) => ({
     type: GET_CURRENT_USER_LISTINGS,
-    payload: listings
+    payload: userListings
 });
 
-const getSingleListing = (singlelistings) => ({
+const getSingleListing = (listing) => ({
     type: GET_SINGLE_LISTING,
-    payload: singlelistings
+    payload: listing
 })
 
 const getConditions = (condition) => ({
@@ -44,19 +44,19 @@ const getCategories = (category) => ({
     payload: category
 })
 
-const createListing = (createListing) => ({
+const createListing = (listing) => ({
     type: CREATE_LISTING,
-    payload: createListing
+    payload: listing
 });
 
-const editListing = (editListing) => ({
+const editListing = (listing) => ({
     type: EDIT_LISTING,
-    payload: editListing
+    payload: listing
 });
 
-const deleteListing = (deleteListing) => ({
+const deleteListing = (listingId) => ({
     type: DELETE_LISTING,
-    const: deleteListing
+    const: listingId
 })
 
 // *********************************
@@ -90,7 +90,7 @@ export const thunkGetAllListings = () => async (dispatch) => {
             return listingData;
         } else {
             const error = await response.json();
-            return { error: error.errors || ['Unable to retrive lsiting data']};
+            return { error: error.errors || ['Unable to retrive listing data']};
         }
     } catch (err) {
         console.error('Error retreiving ALL listings', err);
@@ -123,7 +123,7 @@ export const thunkGetSingleListing = (listings_id) => async (dispatch) => {
 // -----------------------------
 // USERS LISTINGS
 // -----------------------------
-export const thunkgetCurrentUerListings = () => async (dispatch) => {
+export const thunkGetCurrentUserListings = () => async (dispatch) => {
 
     try {
         const response = await csrfFetch('/api/listings/current');
@@ -145,12 +145,12 @@ export const thunkgetCurrentUerListings = () => async (dispatch) => {
 // -----------------------------
 // EDIT LISTING
 // -----------------------------
-export const thunkCreateListing = (listing_id, listingEdit) => async (dispatch) => {
+export const thunkEditLsiting = (listing_id, listingEdit) => async (dispatch) => {
 
     try {
         const response = await csrfFetch(`/api/listings/${listing_id}/edit`, {
             method: "PUT",
-            headers: {'Contenty-Type': 'application/json'},
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(listingEdit)
         });
 
@@ -171,7 +171,7 @@ export const thunkCreateListing = (listing_id, listingEdit) => async (dispatch) 
 // -----------------------------
 // CREATE LISTING
 // -----------------------------
-export const thunkEditLsiting = (listingData) => async (dispatch) => {
+export const thunkCreateListing = (listingData) => async (dispatch) => {
 
     try {
         const response = await csrfFetch('/api/listings/create', {
@@ -181,7 +181,7 @@ export const thunkEditLsiting = (listingData) => async (dispatch) => {
         });
 if (response.ok) {
             const newListingData = await response.json();
-            dispatch(createPost(newListingData));
+            dispatch(createListing(newListingData));
             return newListingData;
         } else {
             const error = await response.json();
@@ -198,13 +198,11 @@ if (response.ok) {
 // -----------------------------
 export const thunkDeleteListing = (listing_id) => async (dispatch) => {
         // Fixed: Added leading slash and used csrfFetch for proper authentication
-        const response = await csrfFetch(`/api/listing/${listing_id}`, {
-            method: 'DELETE'
-        });
+        const response = await csrfFetch(`/api/listings/${listing_id}`, { method: 'DELETE' });
 
         if (response.ok) {
             // Fixed: Dispatch with post_id, not the action creator function
-            dispatch(deletePost(listing_id));
+            dispatch(deleteListing(listing_id));
             return response;
         } else {
             const error = await response.json();
@@ -244,7 +242,7 @@ export const thunkGetConditions = () => async (dispatch) => {
 
         if(response.ok){
             const conditionsData = await response.json();
-            dispatch(getCategories(conditionsData.Categories))
+            dispatch(getConditions(conditionsData.Conditions))
             return conditionsData;
         } else {
             const error = await response.json();
@@ -266,26 +264,201 @@ export const thunkGetConditions = () => async (dispatch) => {
 export const thunkGetAllComments = (listing_id) => async (dispatch) => {
 
     try {
-        const response = await csrfFetch(`/api/comments/${listing_id}/comments`);
+        const response = await csrfFetch(`/api/listings/${listing_id}/comments`);
 
         if(response.ok){
-            const listingData = await response.json();
-            dispatch(getAllListings(listingData.Listings))
-            return listingData;
+            const commentsData = await response.json();
+            dispatch(getAllComments(commentsData.Comments))
+            return commentsData;
         } else {
             const error = await response.json();
-            return { error: error.errors || ['Unable to retrive lsiting data']};
+            return { error: error.errors || ['Unable to retrive comments data']};
         }
     } catch (err) {
-        console.error('Error retreiving ALL listings', err);
-        return {"error": "Unable to retrive ALL listings data"}
+        console.error('Error retreiving ALL comments', err);
+        return {"error": "Unable to retrive ALL comments data"}
     }
 };
 
 // -----------------------------
 // POST CREATE NEW COMMENTS
 // -----------------------------
+export const thunkCreateComment = (listing_id, commentData) => async (dispatch) => {
 
+    try {
+        const response = await csrfFetch(`/api/listings/${listing_id}/create`, {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(commentData)
+        });
+        if (response.ok) {
+            const newCommentData = await response.json();
+            dispatch(createComment(newCommentData));
+            return newCommentData;
+        } else {
+            const error = await response.json();
+            return { error: error.errors || ["Not able to create comment"] };
+        }
+    } catch (err) {
+        console.error('Error creating comment', err);
+        return { "error": "Unable to create the comment" };
+    }
+};
 // *********************************
 //   REDUCERS
 // **********************************
+const initialState = {
+    listings: {},
+    categories: {},
+    conditions: {},
+    currentListing: null
+};
+
+function listingReducer(state = initialState, action) {
+    switch (action.type) {
+        case GET_ALL_LISTINGS: {
+        const listings = {};
+        action.payload.forEach((listing) => (listings[listing.id] = listing));
+        return { ...state, listings };
+        }
+
+        case GET_CATEGORIES: {
+        const categories = {};
+        action.payload.forEach((cat) => (categories[cat.id] = cat));
+        return { ...state, categories };
+        }
+
+        case GET_CONDITIONS: {
+        const conditions = {};
+        action.payload.forEach((cond) => (conditions[cond.id] = cond));
+        return { ...state, conditions };
+        }
+
+        case GET_SINGLE_LISTING: {
+        return { ...state, currentListing: action.payload };
+        }
+
+        case CREATE_LISTING: {
+        return {
+            ...state,
+            listings: { ...state.listings, [action.payload.id]: action.payload }
+        };
+        }
+
+        case EDIT_LISTING: {
+        return {
+            ...state,
+            listings: { ...state.listings, [action.payload.id]: action.payload }
+        };
+        }
+
+        case DELETE_LISTING: {
+        const newListings = { ...state.listings };
+        delete newListings[action.payload];
+        return { ...state, listings: newListings };
+        }
+
+        // --- Comments nested inside listings ---
+        case GET_ALL_COMMENTS: {
+        const { listingId, comments } = action.payload;
+        const listing = state.listings[listingId];
+        if (!listing) return state;
+
+        return {
+            ...state,
+            listings: {
+            ...state.listings,
+            [listingId]: {
+                ...listing,
+                comments: comments.reduce((acc, comment) => {
+                acc[comment.id] = comment;
+                return acc;
+                }, {})
+            }
+            }
+        };
+        }
+
+        case CREATE_COMMENT: {
+        const comment = action.payload;
+        const listingId = comment.listingId;
+        const listing = state.listings[listingId];
+        if (!listing) return state;
+
+        return {
+            ...state,
+            listings: {
+            ...state.listings,
+            [listingId]: {
+                ...listing,
+                comments: { ...listing.comments, [comment.id]: comment }
+            }
+            }
+        };
+        }
+
+        default:
+        return state;
+    }
+}
+
+export default listingReducer;
+
+// const initialState = {};
+// function listings_commentsReducer(state = initialState, action) {
+//     switch(action.type) {
+//         case GET_ALL_LISTINGS: {
+//             const newState = {}
+//             action.payload.forEach((listing) => (newState[listing.id] = listing))
+//             return newState;
+//         };
+//         case GET_CURRENT_USER_LISTINGS: {
+//             const newState = {}
+//             action.payload.forEach((listing) => (newState[listing.id] = listing))
+//             return newState;
+//         };
+//         case GET_SINGLE_LISTING: {
+//             return { ...state, currentListing: action.payload }
+//         };
+//         case CREATE_LISTING: {
+//             const newState = { ...state };
+//             newState[action.payload.id] = { ...action.payload }
+//             return newState;
+//         };
+//         case EDIT_LISTING: {
+//             return { ...state, [action.payload.id]: action.payload };
+//         };
+//         case DELETE_LISTING: {
+//             const newState = { ...state };
+//             delete newState[action.payload];
+//             return newState;
+//         }
+//         case GET_CATEGORIES: {
+//             const newState = {}
+//             action.payload.forEach((category) => (newState[category.id] = category))
+//             return newState;
+//         };
+//         case GET_CONDITIONS: {
+//             const newState = {}
+//             action.payload.forEach((conditon) => (newState[conditon.id] = conditon))
+//             return newState;
+//         };
+//         // ----------------
+//         // COMMENTS THUNK
+//         // ----------------
+//         case GET_ALL_COMMENTS: {
+//             const newState = {}
+//             action.payload.forEach((comment) => (newState[comment.id] = comment))
+//             return newState;
+//         };
+//         case CREATE_COMMENT: {
+//             const newState = { ...state };
+//             newState[action.payload.id] = { ...action.payload }
+//             return newState;
+//         };
+//         default:
+//             return state;
+//     }
+// }
+
+// export default listings_commentsReducer;
