@@ -44,7 +44,7 @@ function Listings() {
                                         </Link>
                                         <p>${listing.price}</p>
                                         {/* <button className="quick-view">Quick View</button> */}
-                                        <p className="username">Listed by: {listing.owner_id}</p>
+                                        <p className="username">Listed by: {listing.owner}</p>
                                     </div>
                                 </div>
                             ))}
