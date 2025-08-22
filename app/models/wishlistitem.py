@@ -20,5 +20,7 @@ class Wishlistitem(db.Model, TimeStampMixin):
         return {
             'id': self.id,
             'wishlist_id': self.wishlist_id,
-            'listing_id': self.listing_id
+            'listing_id': self.listing_id,
+            'listing': self.listing.to_dict() if self.listing else None
+
         }

@@ -5,6 +5,8 @@ import LandingPage from '../components/LandingPage/LandingPage';
 import Listings from '../components/ListingsPage/Listings';
 import AboutUs from '../components/AboutUs/AboutUs';
 import ManageListings from '../components/ManageListings/ManageListings'
+import ListingFormModal from '../components/ListingFormModal/ListingFormModal'
+import Wishlists from '../components/ManageWishlists/ManageWishlists';
 import Layout from './Layout';
 import ListingsDetailPage from '../components/ListingsDetailPage/ListingsDetailPage';
 
@@ -35,6 +37,14 @@ export const router = createBrowserRouter([
       {
         path: '/current',
         element: <ManageListings />
+      },
+        {
+        path: '/wishlists',
+        element: <Wishlists />
+      },
+      {
+        path: 'listing/create',
+        element: <ListingFormModal />
       },
       {
         path: "about",

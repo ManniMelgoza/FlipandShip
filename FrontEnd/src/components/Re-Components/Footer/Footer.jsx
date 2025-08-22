@@ -46,25 +46,43 @@ function Footer() {
 
         {/* Services Section */}
         <div className="footer-section">
-        <h3>Services</h3>
-        <ul>
-            <li>
-            <a href="/sell">Sell Your Items</a>
-            </li>
-            {/* <li>
-            <a href="/shipping">Shipping Info</a>
-            </li> */}
-            {/* <li>
-            <a href="/returns">Returns Policy</a>
-            </li> */}
-            <li>
-            <a href="/support">Customer Support</a>
-            </li>
-            <li>
-            <a href="/protection">Buyer Protection</a>
-            </li>
-        </ul>
-        </div>
+            <h3>Services</h3>
+            <ul>
+                <li>
+                <a
+                    href="/sell"
+                    onClick={(e) => {
+                    e.preventDefault(); // Prevent navigation
+                    alert("Sell Your Items page coming soon!");
+                    }}
+                >
+                    Sell Your Items
+                </a>
+                </li>
+                <li>
+                <a
+                    href="/support"
+                    onClick={(e) => {
+                    e.preventDefault();
+                    alert("Customer Support page coming soon!");
+                    }}
+                >
+                    Customer Support
+                </a>
+                </li>
+                <li>
+                <a
+                    href="/protection"
+                    onClick={(e) => {
+                    e.preventDefault();
+                    alert("Buyer Protection page coming soon!");
+                    }}
+                >
+                    Buyer Protection
+                </a>
+                </li>
+            </ul>
+            </div>
 
         {/* Contact Section */}
         <div className="footer-section">

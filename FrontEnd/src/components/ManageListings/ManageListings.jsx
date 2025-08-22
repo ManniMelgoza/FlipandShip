@@ -25,7 +25,7 @@ function ManageListings() {
     <>
       <div className="landing-container">
         <h1>Manage Your Listings</h1>
-        <Link to="/listings/create" className="cta-btn">
+        <Link to="/listing/create" className="cta-btn">
           Create a New Listing
         </Link>
 

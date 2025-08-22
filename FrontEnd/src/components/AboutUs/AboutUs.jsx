@@ -1,12 +1,12 @@
 import "./AboutUs.css";
-import Header from "../Re-Components/Header/Header";
+// import Header from "../Re-Components/Header/Header";
 import Footer from "../Re-Components/Footer/Footer";
 
 const AboutUs = () => {
   return (
     <>
       <div className="about-container">
-        <Header />
+        {/* <Header /> */}
 
         {/* Hero Section */}
         <section className="hero">

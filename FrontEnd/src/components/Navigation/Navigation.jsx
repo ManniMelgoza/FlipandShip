@@ -9,6 +9,7 @@ function Navigation() {
         <NavLink to="/" className="logo">
           Flip&Ship
         </NavLink>
+        
       </div>
       <div className="nav-right">
         <ProfileButton />

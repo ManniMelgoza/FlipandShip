@@ -5,6 +5,7 @@ import { csrfFetch } from "./csrf";
 const GET_WISHLIST_ITEMS = "wishlistItems/GET_WISHLIST_ITEMS";
 const ADD_WISHLIST_ITEM = "wishlistItems/ADD_WISHLIST_ITEM";
 const DELETE_WISHLIST_ITEM = "wishlistItems/DELETE_WISHLIST_ITEM";
+const ADD_ITEM_TO_WISHLIST = "wishlistItems/addItem";
 
 // *********************************
 //  Action Creators
@@ -12,6 +13,11 @@ const DELETE_WISHLIST_ITEM = "wishlistItems/DELETE_WISHLIST_ITEM";
 const getWishlistItems = (items) => ({
     type: GET_WISHLIST_ITEMS,
     payload: items,
+});
+
+const addItem = (item) => ({
+    type: ADD_ITEM_TO_WISHLIST,
+    payload: item,
 });
 
 const addWishlistItem = (item) => ({
@@ -45,6 +51,28 @@ export const thunkwishlistItems = (wishlistId) => async (dispatch) => {
     } catch (err) {
         console.error("Error retrieving wishlist items", err);
         return { error: "Unable to retrieve wishlist items" };
+    }
+};
+
+export const thunkAddItemToWishlist = (wishlistId, listingId) => async (dispatch) => {
+    try {
+        const response = await csrfFetch("/api/wishlistitems/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ wishlist_id: wishlistId, listing_id: listingId }),
+        });
+
+        if (response.ok) {
+        const item = await response.json();
+        dispatch(addItem(item));
+        return item;
+        } else {
+        const error = await response.json();
+        return { error: error.errors || ["Unable to add item to wishlist"] };
+        }
+    } catch (err) {
+        console.error("Error adding item to wishlist", err);
+        return { error: "Unable to add item to wishlist" };
     }
 };
 
@@ -102,6 +130,7 @@ const initialState = {
     wishlistItems: {}, // store items normalized by id
 };
 
+
 const wishlistItemsReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_WISHLIST_ITEMS: {
@@ -112,6 +141,17 @@ const wishlistItemsReducer = (state = initialState, action) => {
             return { ...state, wishlistItems: items };
         }
 
+        case ADD_ITEM_TO_WISHLIST: {
+            return {
+                ...state,
+                wishlistItems: {
+                    ...state.wishlistItems,
+                    [action.payload.id]: action.payload,
+                },
+            };
+        }
+
+        // (optional) if ADD_WISHLIST_ITEM is the same, you can reuse logic
         case ADD_WISHLIST_ITEM: {
             return {
                 ...state,

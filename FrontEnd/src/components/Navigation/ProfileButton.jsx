@@ -54,6 +54,10 @@ function ProfileButton() {
     navigate('/current');
     }
 
+    const wishlists = () => {
+    navigate('/wishlists');
+    }
+
 
   return (
     <>
@@ -79,6 +83,9 @@ function ProfileButton() {
                 </div>
                 <div className="dropdown-item">
                 <button onClick={manageListings}>Manage Listings</button>
+                </div>
+                <div className="dropdown-item">
+                <button onClick={wishlists}>Wishlists</button>
                 </div>
               </li>
               <li><div className="dropdown-item">{user.email}</div></li>
