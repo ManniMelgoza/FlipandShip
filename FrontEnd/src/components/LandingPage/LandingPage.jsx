@@ -93,7 +93,7 @@ const LandingPage = () => {
                 <h3>Title:{listing.item_title}</h3>
                 <p>${listing.price}</p>
                 {/* <button className="quick-view">Quick View</button> */}
-                <p className="username">Listed by: {listing.owner_id}</p>
+                <p className="username">Listed by: {listing.owner}</p>
             </div>
             </div>
         ))}
