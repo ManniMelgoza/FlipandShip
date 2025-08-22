@@ -91,7 +91,7 @@ export const thunkCreateWishlist = (newWishlist) => async (dispatch) => {
         const response = await csrfFetch('/api/wishlists/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ newWishlist })
+            body: JSON.stringify(newWishlist)
         });
 
         if (response.ok) {
@@ -116,7 +116,7 @@ export const thunkEditWishlist = (wishlistId, wishlistEdit) => async (dispatch) 
         const response = await csrfFetch(`/api/wishlists/${wishlistId}/edit`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ wishlistEdit })
+            body: JSON.stringify(wishlistEdit)
         });
 
         if (response.ok) {
