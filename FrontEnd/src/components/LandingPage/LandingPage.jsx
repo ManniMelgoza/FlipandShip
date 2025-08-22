@@ -4,7 +4,7 @@ import { thunkGetAllListings } from "../../redux/listings";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
 import Footer from "../Re-Components/Footer/Footer";
-import Header from "../Re-Components/Header/Header";
+// import Header from "../ Re-Components/Header/Header";
 
 
 const LandingPage = () => {
@@ -23,18 +23,7 @@ const LandingPage = () => {
     return (
         <>
         <div className="landing-container">
-            <Header />
-        {/* Header */}
-        {/* <header className="header">
-            <Link to="/">
-                <h1 className="logo">Flip&Ship</h1>
-            </Link>
-            <div className="auth-buttons">
-            <button className="auth-btn">Sign In</button>
-            <button className="auth-btn">Register</button>
-            </div>
-        </header> */}
-
+            {/* <Header /> */}
         {/* Hero Section */}
         <section className="hero">
             <div className="hero-content">
@@ -44,7 +33,9 @@ const LandingPage = () => {
                 unbeatable deals on brand-new, open-box, and gently used items — all
                 handpicked for value and quality.
             </p>
-            <button className="cta-btn">Shop Now</button>
+            <Link to="/listings">
+                <button className="cta-btn">Shop Now</button>
+            </Link>
             </div>
             <div className="hero-image">
             <img
@@ -75,30 +66,34 @@ const LandingPage = () => {
 
       {/* Listings Grid */}
     <section className="listings-section">
-        <h2>Newly Posted Items</h2>
-        <div className="listings-grid">
-        {listingsArr.map((listing) => (
-            <div className="listing-card" key={listing.id}>
-            <div className="listing-image">
-                <img
-                    src={
-                        listing.images && listing.images.length > 0
-                        ? listing.images.find(img => img.is_main)?.url || listing.images[0].url
-                        : "https://res.cloudinary.com/dnfeiduuu/image/upload/v1755820688/coming_soon_ptthmw.jpg"
-                    }
-                        alt={listing.item_title}
-                />
-            </div>
-            <div className="listing-info">
-                <h3>Title:{listing.item_title}</h3>
-                <p>${listing.price}</p>
-                {/* <button className="quick-view">Quick View</button> */}
-                <p className="username">Listed by: {listing.owner}</p>
-            </div>
-            </div>
-        ))}
+  <h2>Posted Items</h2>
+  <div className="listings-grid">
+    {listingsArr.sort(() => 0.5 - Math.random()).slice(0, 7).map((listing) => (
+      <Link
+        to={`/listings/${listing.id}`}
+        key={listing.id}
+        className="listing-card"
+      >
+        <div className="listing-image">
+          <img
+            src={
+              listing.images && listing.images.length > 0
+                ? listing.images.find((img) => img.is_main)?.url ||
+                  listing.images[0].url
+                : "https://res.cloudinary.com/dnfeiduuu/image/upload/v1755820688/coming_soon_ptthmw.jpg"
+            }
+            alt={listing.item_title}
+          />
         </div>
-    </section>
+        <div className="listing-info">
+          <h3>{listing.item_title}</h3>
+          <p>${listing.price}</p>
+          <p className="username">Listed by: {listing.owner}</p>
+        </div>
+      </Link>
+    ))}
+  </div>
+</section>
 
     {/* Secondary Banner */}
     <section className="cta-banner">

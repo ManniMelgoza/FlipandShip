@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import './Header.css'
+import './Header.css';
+import OpenModalMenuItem from "../../Navigation/OpenModalMenuItem";
+import LoginFormModal from "../../LoginFormModal/LoginFormModal";
+import SignupFormModal from "../../SignupFormModal/SignupFormModal";
 
 function Header() {
     return (
@@ -8,8 +11,14 @@ function Header() {
                 <h1 className="logo">Flip&Ship</h1>
             </Link>
             <div className="auth-buttons">
-            <button className="auth-btn">Sign In</button>
-            <button className="auth-btn">Register</button>
+                <OpenModalMenuItem
+                    itemText={<button className="auth-btn">Sign In</button>}
+                    modalComponent={<LoginFormModal />}
+                />
+                <OpenModalMenuItem
+                    itemText={<button className="auth-btn">Register</button>}
+                    modalComponent={<SignupFormModal />}
+                />
             </div>
         </header>
     )

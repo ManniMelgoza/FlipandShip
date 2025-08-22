@@ -35,12 +35,12 @@ function Footer() {
             <li>
             <a href="/listings">All Listings</a>
             </li>
-            <li>
+            {/* <li>
             <a href="/categories">Categories</a>
             </li>
             <li>
             <a href="/sellers">Top Sellers</a>
-            </li>
+            </li> */}
         </ul>
         </div>
 
@@ -51,12 +51,12 @@ function Footer() {
             <li>
             <a href="/sell">Sell Your Items</a>
             </li>
-            <li>
+            {/* <li>
             <a href="/shipping">Shipping Info</a>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
             <a href="/returns">Returns Policy</a>
-            </li>
+            </li> */}
             <li>
             <a href="/support">Customer Support</a>
             </li>

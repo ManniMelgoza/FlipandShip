@@ -4,14 +4,16 @@ import "./Navigation.css";
 
 function Navigation() {
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
+    <nav className="navigation">
+      <div className="nav-left">
+        <NavLink to="/" className="logo">
+          Flip&Ship
+        </NavLink>
+      </div>
+      <div className="nav-right">
         <ProfileButton />
-      </li>
-    </ul>
+      </div>
+    </nav>
   );
 }
 

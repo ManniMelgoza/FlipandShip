@@ -117,10 +117,11 @@ def get_conditions():
 #***********************************************
 @listing_routes.route('/current')
 @login_required
-def get_current_user_listings():
+def current_user_listings():
     user_listings = Listing.query.filter_by(owner_id=current_user.id).all()
-    return {'User_Listings': [item.to_dict() for item in user_listings]}
-
+    return jsonify({
+        'User_Listings': [listing.to_dict() for listing in user_listings]
+    })
 # ***************************************
 #   PUT Edit Listing
 #****************************************
