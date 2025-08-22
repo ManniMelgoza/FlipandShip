@@ -6,9 +6,15 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
+import listingReducer from "./listings";
+import wishlistReducer from './wishlist';
+import wishlistItemsReducer from './wishlistitems';
 
 const rootReducer = combineReducers({
   session: sessionReducer,
+  listings: listingReducer,
+  wishlist: wishlistReducer,
+  wishlistitems: wishlistItemsReducer
 });
 
 let enhancer;

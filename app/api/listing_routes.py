@@ -9,10 +9,11 @@ listing_routes = Blueprint('listings', __name__)
 # *********************************
 #   GET All Listingss Route Homepage
 #**********************************
-@listing_routes.route('/')
+@listing_routes.route('/', methods=['GET'])
 def all_listings():
     listings = Listing.query.all()
-    return {'Listings': [item.to_dict() for item in listings]}, 200
+    return {'Listings': [item.to_dict() for item in listings]}
+    # return {[item.to_dict() for item in listings]}, 200
 
 # *********************************
 #   GET Single Listings
@@ -108,17 +109,17 @@ def get_categories():
 #****************************************
 @listing_routes.route('/conditions')
 def get_conditions():
-    conditions =Listingcondition.query.all()
+    conditions = Listingcondition.query.all()
     return {'Conditions': [condition.to_dict() for condition in conditions]}
 
-# ***************************************
-#   GET ALL Current User's Posts Route
-#****************************************
+# **********************************************
+#   GET ALL Current User's Posts Listings Route
+#***********************************************
 @listing_routes.route('/current')
 @login_required
 def get_current_user_listings():
     user_listings = Listing.query.filter_by(owner_id=current_user.id).all()
-    return {'Listings': [item.to_dict() for item in user_listings]}
+    return {'User_Listings': [item.to_dict() for item in user_listings]}
 
 # ***************************************
 #   PUT Edit Listing
