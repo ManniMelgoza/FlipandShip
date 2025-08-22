@@ -9,10 +9,11 @@ listing_routes = Blueprint('listings', __name__)
 # *********************************
 #   GET All Listingss Route Homepage
 #**********************************
-@listing_routes.route('/')
+@listing_routes.route('/', methods=['GET'])
 def all_listings():
     listings = Listing.query.all()
-    return {'Listings': [item.to_dict() for item in listings]}, 200
+    return {'Listings': [item.to_dict() for item in listings]}
+    # return {[item.to_dict() for item in listings]}, 200
 
 # *********************************
 #   GET Single Listings

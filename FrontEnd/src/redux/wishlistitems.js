@@ -30,7 +30,7 @@ const deleteWishlistItem = (itemId) => ({
 // -----------------------------
 // GET WISHLIST ITEMS
 // -----------------------------
-export const wishlistItemsReducer = (wishlistId) => async (dispatch) => {
+export const thunkwishlistItems = (wishlistId) => async (dispatch) => {
     try {
         const response = await csrfFetch(`/api/wishlistitems/wishlist/${wishlistId}`);
 
@@ -39,7 +39,7 @@ export const wishlistItemsReducer = (wishlistId) => async (dispatch) => {
             dispatch(getWishlistItems(wishlistItems));
             return wishlistItems;
         } else {
-            const error = await respoånse.json();
+            const error = await response.json();
             return { error: error.errors || ["Unable to retrieve wishlist items"] };
         }
     } catch (err) {
