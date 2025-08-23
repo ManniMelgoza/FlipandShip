@@ -122,41 +122,86 @@ def current_user_listings():
     return jsonify({
         'User_Listings': [listing.to_dict() for listing in user_listings]
     })
-# ***************************************
-#   PUT Edit Listing
-#****************************************
+# # ***************************************
+# #   PUT Edit Listing ORIGINAL
+# #****************************************
+# @listing_routes.route('/<int:listing_id>/edit', methods=['PUT'])
+# @login_required
+# def edit_listing(listing_id):
+#     listing_edit = Listing.query.get(listing_id)
+
+#     if not listing_edit:
+#         return {"Message": 'This listing does not exits'}, 404
+
+#     if listing_edit.owner_id != current_user.id:
+#         return {"Message": 'You are not authorized to edit this listing'}, 403
+
+#     edit_form = ListingForm(obj=listing_edit)
+
+#     edit_form['csrf_token'].data = request.cookies.get('csrf_token')
+
+
+#     if edit_form.validate_on_submit():
+
+#         listing_edit.item_title=edit_form.data['item_title']
+#         listing_edit.price=edit_form.data['price']
+#         listing_edit.description=edit_form.data['description']
+#         listing_edit.location=edit_form.data['location']
+#         listing_edit.brand=edit_form.data['brand']
+#         listing_edit.color=edit_form.data['color']
+#         listing_edit.quantity=edit_form.data['quantity']
+#         listing_edit.condition_id=edit_form.data['condition']
+#         listing_edit.category_id=edit_form.data['category']
+
+#         db.session.commit()
+#         return listing_edit.to_dict(), 200
+#     return {'Errors': edit_form.errors}, 400
+# # ***************************************
+# #   PUT Edit Listing UPDATED
+# #****************************************
+
 @listing_routes.route('/<int:listing_id>/edit', methods=['PUT'])
 @login_required
 def edit_listing(listing_id):
-    listing_edit = Listing.query.get(listing_id)
-
-    if not listing_edit:
-        return {"Message": 'This listing does not exits'}, 404
-
-    if listing_edit.owner_id != current_user.id:
-        return {"Message": 'You are not authorized to edit this listing'}, 403
-
-    edit_form = ListingForm(obj=listing_edit)
-
-    edit_form['csrf_token'].data = request.cookies.get('csrf_token')
-
+    edit_form = ListingForm()
+    edit_form['csrf_token'].data = request.cookies['csrf_token']
 
     if edit_form.validate_on_submit():
+        listing_edit = Listing.query.get(listing_id)
 
-        listing_edit.item_title=edit_form.data['item_title']
-        listing_edit.price=edit_form.data['price']
-        listing_edit.description=edit_form.data['description']
-        listing_edit.location=edit_form.data['location']
-        listing_edit.brand=edit_form.data['brand']
-        listing_edit.color=edit_form.data['color']
-        listing_edit.quantity=edit_form.data['quantity']
-        listing_edit.condition_id=edit_form.data['condition']
-        listing_edit.category_id=edit_form.data['category']
+        if not listing_edit:
+            return {"error": "Listing not found"}, 404
+
+        listing_edit.item_title = edit_form.data['item_title']
+        listing_edit.description = edit_form.data['description']
+        listing_edit.price = edit_form.data['price']
+        listing_edit.color = edit_form.data['color']
+        listing_edit.location = edit_form.data['location']
+        listing_edit.brand = edit_form.data['brand']
+        listing_edit.quantity = edit_form.data['quantity']
+        listing_edit.category_id = edit_form.data['category']
+        listing_edit.condition_id = edit_form.data['condition']
+
+        new_img_url = edit_form.data.get('listing_img1')
+        if new_img_url:
+            main_image = next((img for img in listing_edit.listing_images if img.is_main), None)
+            if main_image:
+                # update existing main image
+                main_image.listing_img = new_img_url
+            else:
+                # if no main image exists, create one
+                new_image = Listingimage(
+                    listing_id=listing_edit.id,
+                    listing_img=new_img_url,
+                    is_main=True
+                )
+                db.session.add(new_image)
 
         db.session.commit()
-        return listing_edit.to_dict(), 200
-    return {'Errors': edit_form.errors}, 400
+        return jsonify(listing_edit.to_dict()), 200
 
+    # validation errors
+    return jsonify({'errors': edit_form.errors}), 400
 # *********************************
 #  DELETE Listing Route
 #**********************************

@@ -16,9 +16,11 @@ function EditListingModal({ listing }) {
   const [brand, setBrand] = useState(listing.brand || "");
   const [color, setColor] = useState(listing.color || "");
   const [quantity, setQuantity] = useState(listing.quantity || "");
-  const [categoryId, setCategoryId] = useState(listing.category_id || "");
-  const [conditionId, setConditionId] = useState(listing.condition_id || "");
-//   const [imageUrl, setImageUrl] = useState(listing.listing_img1 || ""); // main image
+const [categoryId, setCategoryId] = useState(listing.category?.id || "");
+const [conditionId, setConditionId] = useState(listing.condition?.id || "");
+  const [imageUrl, setImageUrl] = useState(
+  listing.images?.find(img => img.is_main)?.url || ""
+);
   const [errors, setErrors] = useState([]);
 
   const categories = useSelector((state) => state.listings.categories) || {};
@@ -45,10 +47,10 @@ function EditListingModal({ listing }) {
     if (!quantity) validationErrors.push("Quantity is required");
     if (!categoryId) validationErrors.push("Category is required");
     if (!conditionId) validationErrors.push("Condition is required");
-    // if (!imageUrl) validationErrors.push("Image URL is required");
+    if (!imageUrl) validationErrors.push("Image URL is required");
 
     if (validationErrors.length > 0) {
-      return setErrors(validationErrors);
+        return setErrors(validationErrors);
     }
 
     const listingData = {
@@ -61,7 +63,7 @@ function EditListingModal({ listing }) {
       quantity,
       category: categoryId,
       condition: conditionId,
-    //   listing_img1: imageUrl,
+      listing_img1: imageUrl,
     };
 
     const res = await dispatch(thunkEditLsiting(listing.id, listingData));
@@ -142,10 +144,10 @@ function EditListingModal({ listing }) {
           </select>
         </label>
 
-        {/* <label>
+        <label>
           Main Image URL
           <input type="text" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} required />
-        </label> */}
+        </label>
 
         <div className="listing-form-buttons">
           <button type="submit">Update Listing</button>

@@ -71,6 +71,10 @@ function ManageListings() {
                     buttonText="Edit"
                     modalComponent={<EditListingModal listing={listing} />}
                   />
+                      {/* <OpenModalButton
+                      buttonText="Edit"
+                      modalComponent={<EditListingModal listingId={listing.id} />}
+                    /> */}
                     <OpenModalButton
                       buttonText="Delete"
                       className="quick-view"
