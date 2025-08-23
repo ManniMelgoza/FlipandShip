@@ -127,17 +127,17 @@ def upgrade():
     )
 
 
-    op.drop_constraint(
-        'listing_images_listing_id_fkey',
-        'listing_images',
-        type_='foreignkey'
-    )
-    op.create_foreign_key(
-        'listing_images_listing_id_fkey',
-        'listing_images', 'listings',
-        ['listing_id'], ['id'],
-        ondelete="CASCADE"
-    )
+    # op.drop_constraint(
+    #     'listing_images_listing_id_fkey',
+    #     'listing_images',
+    #     type_='foreignkey'
+    # )
+    # op.create_foreign_key(
+    #     'listing_images_listing_id_fkey',
+    #     'listing_images', 'listings',
+    #     ['listing_id'], ['id'],
+    #     ondelete="CASCADE"
+    # )
 
     # ### end Alembic commands ###
 
@@ -174,14 +174,14 @@ def downgrade():
     op.drop_table('listingconditions')
     op.drop_table('listingcategories')
 
-    op.drop_constraint(
-        'listing_images_listing_id_fkey',
-        'listing_images',
-        type_='foreignkey'
-    )
-    op.create_foreign_key(
-        'listing_images_listing_id_fkey',
-        'listing_images', 'listings',
-        ['listing_id'], ['id']
-    )
+    # op.drop_constraint(
+    #     'listing_images_listing_id_fkey',
+    #     'listing_images',
+    #     type_='foreignkey'
+    # )
+    # op.create_foreign_key(
+    #     'listing_images_listing_id_fkey',
+    #     'listing_images', 'listings',
+    #     ['listing_id'], ['id']
+    # )
     # ### end Alembic commands ###
