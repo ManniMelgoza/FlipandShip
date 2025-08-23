@@ -39,7 +39,7 @@ class Listing(db.Model, TimeStampMixin):
     def to_dict(self):
         return {
             'id': self.id,
-            'owner': self.owner.username,
+            'owner_id': self.owner_id,
             'item_title': self.item_title,
             'price': str(self.price),
             'description': self.description,
