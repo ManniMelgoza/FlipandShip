@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { thunkGetCurrentUserListings } from "../../redux/listings";
 import ManageDeleteListingModal from "./DeleteListings";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import CreateListingModal from "../ManageListings/CreateListingModal";
+import EditListingModal from "./EditListingModal";
 import Footer from "../Re-Components/Footer/Footer";
 import "./ManageListings.css";
 
@@ -25,10 +27,10 @@ function ManageListings() {
     <>
       <div className="landing-container">
         <h1>Manage Your Listings</h1>
-        <Link to="/listing/create" className="cta-btn">
-          Create a New Listing
-        </Link>
-
+        <OpenModalButton
+        buttonText="➕ New Listing"
+        modalComponent={<CreateListingModal />}
+        />
         {listingsArray.length === 0 ? (
           <p>No listings available</p>
         ) : (
@@ -58,13 +60,17 @@ function ManageListings() {
                     </div>
                   </Link>
                   <div style={{ marginTop: "8px" }}>
-                    <Link
+                    {/* <Link
                       to={`/listings/${listing.id}/edit`}
                       className="quick-view"
                       style={{ marginRight: "8px" }}
                     >
                       Update
-                    </Link>
+                    </Link> */}
+                    <OpenModalButton
+                    buttonText="Edit"
+                    modalComponent={<EditListingModal listing={listing} />}
+                  />
                     <OpenModalButton
                       buttonText="Delete"
                       className="quick-view"
