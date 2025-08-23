@@ -112,7 +112,7 @@ def upgrade():
     sa.Column('listing_id', sa.Integer(), nullable=False),
     sa.Column('listing_img', sa.String(length=255), nullable=False),
     sa.Column('is_main', sa.Boolean(), nullable=True),
-    sa.ForeignKeyConstraint(['listing_id'], ['listings.id'], ),
+    sa.ForeignKeyConstraint(['listing_id'], ['listings.id'], ondelete="CASCADE"),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('wishlistitems',

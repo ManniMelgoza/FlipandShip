@@ -1,4 +1,4 @@
-# from app.models import db, Listing, environment, SCHEMA
+# from app.models import db, User, Listing, environment, SCHEMA
 # from sqlalchemy.sql import text
 
 # def seed_listings():
