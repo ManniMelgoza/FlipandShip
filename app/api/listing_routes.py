@@ -205,48 +205,48 @@ def edit_listing(listing_id):
 # # *********************************
 # #  DELETE Listing Route ORIGINAL
 # # #**********************************
-# @listing_routes.route('/<int:listing_id>', methods=['DELETE'])
-# @login_required
-# def delete_listings(listing_id):
-#     listing_delete = Listing.query.get(listing_id)
-
-#     if not listing_delete:
-#         return {"Message": "Listing was not found"}, 404
-#     if listing_delete.owner_id != current_user.id:
-#         return {"Message": "You are not authorized to DELETE this listing"}, 403
-
-#     db.session.delete(listing_delete)
-#     db.session.commit()
-#     return {"Message": 'Your listing was DELETED'}, 200
-
-
 @listing_routes.route('/<int:listing_id>', methods=['DELETE'])
 @login_required
-def delete_listing(listing_id):
-    listing = Listing.query.get(listing_id)
+def delete_listings(listing_id):
+    listing_delete = Listing.query.get(listing_id)
 
-    if not listing:
-        return {"Message": "Listing not found"}, 404
+    if not listing_delete:
+        return {"Message": "Listing was not found"}, 404
+    if listing_delete.owner_id != current_user.id:
+        return {"Message": "You are not authorized to DELETE this listing"}, 403
 
-    if listing.owner_id != current_user.id:
-        return {"Message": "You are not authorized to delete this listing"}, 403
+    db.session.delete(listing_delete)
+    db.session.commit()
+    return {"Message": 'Your listing was DELETED'}, 200
 
-    try:
-        # Delete all associated images
-        Listingimage.query.filter_by(listing_id=listing.id).delete()
 
-        # Delete all associated wishlist items
-        Wishlistitem.query.filter_by(listing_id=listing.id).delete()
+# @listing_routes.route('/<int:listing_id>', methods=['DELETE'])
+# @login_required
+# def delete_listing(listing_id):
+#     listing = Listing.query.get(listing_id)
 
-        # Delete the listing itself
-        db.session.delete(listing)
-        db.session.commit()
-        return {"Message": "Listing deleted successfully"}, 200
+#     if not listing:
+#         return {"Message": "Listing not found"}, 404
 
-    except Exception as e:
-        db.session.rollback()
-        print("Delete error:", e)
-        return {"Message": "An error occurred while deleting the listing."}, 500
+#     if listing.owner_id != current_user.id:
+#         return {"Message": "You are not authorized to delete this listing"}, 403
+
+#     try:
+#         # Delete all associated images
+#         Listingimage.query.filter_by(listing_id=listing.id).delete()
+
+#         # Delete all associated wishlist items
+#         Wishlistitem.query.filter_by(listing_id=listing.id).delete()
+
+#         # Delete the listing itself
+#         db.session.delete(listing)
+#         db.session.commit()
+#         return {"Message": "Listing deleted successfully"}, 200
+
+#     except Exception as e:
+#         db.session.rollback()
+#         print("Delete error:", e)
+#         return {"Message": "An error occurred while deleting the listing."}, 500
 
 
 # *************************************************************************************************************************
