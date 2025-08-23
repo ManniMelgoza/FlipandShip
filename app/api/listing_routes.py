@@ -205,20 +205,6 @@ def edit_listing(listing_id):
 # # *********************************
 # #  DELETE Listing Route ORIGINAL
 # #**********************************
-# @listing_routes.route('/<int:listing_id>', methods=['DELETE'])
-# @login_required
-# def delete_listings(listing_id):
-#     listing_delete = Listing.query.get(listing_id)
-
-#     if not listing_delete:
-#         return {"Message": "Listing was not found"}, 404
-#     if listing_delete.owner_id != current_user.id:
-#         return {"Message": "You are not authorized to DELETE this listing"}, 403
-
-#     db.session.delete(listing_delete)
-#     db.session.commit()
-#     return {"Message": 'Your listing was DELETED'}, 200
-
 @listing_routes.route('/<int:listing_id>', methods=['DELETE'])
 @login_required
 def delete_listings(listing_id):
@@ -229,15 +215,11 @@ def delete_listings(listing_id):
     if listing_delete.owner_id != current_user.id:
         return {"Message": "You are not authorized to DELETE this listing"}, 403
 
-    # Explicitly delete dependent objects
-    for img in listing_delete.listing_images:
-        db.session.delete(img)
-    for item in listing_delete.wishlistitems:
-        db.session.delete(item)
-
     db.session.delete(listing_delete)
     db.session.commit()
     return {"Message": 'Your listing was DELETED'}, 200
+
+
 
 # *************************************************************************************************************************
 #   COMMENTS ROUTES BELOW   COMMENTS ROUTES BELOW   COMMENTS ROUTES BELOW   COMMENTS ROUTES BELOW   COMMENTS ROUTES BELOW

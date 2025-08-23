@@ -9,7 +9,7 @@ class Listingimage(db.Model, TimeStampMixin):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    listing_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('listings.id')), nullable=False)
+    listing_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('listings.id'), ondelete='CASCADE'), nullable=False)
     listing_img = db.Column(db.String(255), nullable=False)
     is_main = db.Column(db.Boolean, default=False)
 
